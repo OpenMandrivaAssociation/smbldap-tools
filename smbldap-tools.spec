@@ -1,20 +1,17 @@
-# THIS PACKAGE IS IN SVN
-# PLEASE DO NOT UPLOAD WITHOUT COMMITING
-# YOUR CHANGES
-
 Summary:	User & Group administration tools for Samba-OpenLDAP
 Name: 		smbldap-tools
 Version: 	0.9.2
-Release: 	%mkrel 2
+Release: 	%mkrel 3
 Group: 		System/Servers
 License: 	GPL
-URL:		http://samba.IDEALX.org/
-Source0: 	http://samba.idealx.org/dist/smbldap-tools-%{version}.tar.bz2
+URL:		http://sourceforge.net/projects/smbldap-tools/
+Source0: 	smbldap-tools-%{version}.tar.bz2
 Source1: 	mkntpwd.tar.bz2
 Patch:		smbldap-tools-0.9.1-mdkconfig.patch
 # http://qa.mandriva.com/show_bug.cgi?id=23921
 Patch1:		smbldap-tools-0.9.2-accountOC.patch
 Requires:	perl-IO-Socket-SSL
+BuildRequires:	perl-doc
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
@@ -39,11 +36,25 @@ Comments and/or questions can be sent to the smbldap-tools mailing list
 %patch -p1 -b .mdkconf
 %patch1 -p1
 
+# nuke that IDEALX stuff from the code
+for i in `find -type f`; do
+    perl -pi -e "s|/etc/opt/IDEALX/smbldap-tools/|%{_sysconfdir}/smbldap-tools/|g; \
+    s|/opt/IDEALX/bin:||g; \
+    s|/opt/IDEALX/sbin|%{_sbindir}|g" $i
+done
+
 %build
+%serverbuild
 
 pushd mkntpwd
-%make CFLAGS="%{optflags}"
+%make CFLAGS="$CFLAGS"
 popd
+
+# make some manpages
+for i in smbldap-groupadd smbldap-groupdel smbldap-groupmod smbldap-groupshow smbldap-passwd \
+    smbldap-populate smbldap-useradd smbldap-userdel smbldap-userinfo smbldap-usermod smbldap-usershow; do
+    perldoc $i > $i.1
+done
 
 %install
 rm -rf %{buildroot}
@@ -51,6 +62,7 @@ rm -rf %{buildroot}
 install -d %{buildroot}%{_sysconfdir}/smbldap-tools
 install -d %{buildroot}%{_sbindir}
 install -d %{buildroot}%{perl_vendorlib}
+install -d %{buildroot}%{_mandir}/man1
 
 install -m0644 smbldap.conf %{buildroot}%{_sysconfdir}/smbldap-tools/
 install -m0644 smbldap_bind.conf %{buildroot}%{_sysconfdir}/smbldap-tools/
@@ -68,6 +80,7 @@ install -m0755 smbldap-userinfo %{buildroot}%{_sbindir}/
 install -m0755 smbldap-usermod %{buildroot}%{_sbindir}/
 install -m0755 smbldap-usershow %{buildroot}%{_sbindir}/
 install -m0755 mkntpwd/mkntpwd %{buildroot}%{_sbindir}/
+install -m0644 smbldap-*.1 %{buildroot}%{_mandir}/man1/
 
 %clean
 rm -rf %{buildroot}
@@ -91,6 +104,14 @@ rm -rf %{buildroot}
 %attr(0755,root,root) %{_sbindir}/smbldap-userinfo
 %attr(0755,root,root) %{_sbindir}/smbldap-usershow
 %attr(0644,root,root) %{perl_vendorlib}/smbldap_tools.pm
-
-
-
+%attr(0644,root,root) %{_mandir}/man1/smbldap-groupadd.1*
+%attr(0644,root,root) %{_mandir}/man1/smbldap-groupdel.1*
+%attr(0644,root,root) %{_mandir}/man1/smbldap-groupmod.1*
+%attr(0644,root,root) %{_mandir}/man1/smbldap-groupshow.1*
+%attr(0644,root,root) %{_mandir}/man1/smbldap-passwd.1*
+%attr(0644,root,root) %{_mandir}/man1/smbldap-populate.1*
+%attr(0644,root,root) %{_mandir}/man1/smbldap-useradd.1*
+%attr(0644,root,root) %{_mandir}/man1/smbldap-userdel.1*
+%attr(0644,root,root) %{_mandir}/man1/smbldap-userinfo.1*
+%attr(0644,root,root) %{_mandir}/man1/smbldap-usermod.1*
+%attr(0644,root,root) %{_mandir}/man1/smbldap-usershow.1*
