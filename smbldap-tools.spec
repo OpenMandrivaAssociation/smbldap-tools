@@ -1,7 +1,7 @@
 Summary:	User & Group administration tools for Samba-OpenLDAP
 Name: 		smbldap-tools
 Version: 	0.9.2
-Release: 	%mkrel 3
+Release: 	%mkrel 4
 Group: 		System/Servers
 License: 	GPL
 URL:		http://sourceforge.net/projects/smbldap-tools/
@@ -10,6 +10,7 @@ Source1: 	mkntpwd.tar.bz2
 Patch:		smbldap-tools-0.9.1-mdkconfig.patch
 # http://qa.mandriva.com/show_bug.cgi?id=23921
 Patch1:		smbldap-tools-0.9.2-accountOC.patch
+Patch2:         smbldap-tools-0.9.2-nogecosfordisplayname.patch
 Requires:	perl-IO-Socket-SSL
 BuildRequires:	perl-doc
 BuildRoot:	%{_tmppath}/%{name}-%{version}
@@ -35,6 +36,7 @@ Comments and/or questions can be sent to the smbldap-tools mailing list
 %setup -q -a1
 %patch -p1 -b .mdkconf
 %patch1 -p1
+%patch2 -p1
 
 # nuke that IDEALX stuff from the code
 for i in `find -type f`; do
