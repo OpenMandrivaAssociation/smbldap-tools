@@ -10,6 +10,7 @@ Source1: 	mkntpwd.tar.bz2
 Patch:		smbldap-tools-0.9.4-mdvconfig.patch
 Requires:	perl-IO-Socket-SSL
 BuildRequires:	perl-doc
+BuildRoot:	%{_tmppath}/%{name}-%{version}
 
 %description
 Smbldap-tools is a set of perl scripts written by Idealx. Those scripts are
