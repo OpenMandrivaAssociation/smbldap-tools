@@ -1,7 +1,7 @@
 Summary:	User & Group administration tools for Samba-OpenLDAP
 Name: 		smbldap-tools
 Version: 	0.9.5
-Release: 	%mkrel 1
+Release: 	%mkrel 2
 Group: 		System/Servers
 License: 	GPL
 URL:		https://gna.org/projects/smbldap-tools/
@@ -62,7 +62,7 @@ install -d %{buildroot}%{perl_vendorlib}
 install -d %{buildroot}%{_mandir}/man1
 
 install -m0644 smbldap.conf %{buildroot}%{_sysconfdir}/smbldap-tools/
-install -m0644 smbldap_bind.conf %{buildroot}%{_sysconfdir}/smbldap-tools/
+install -m0600 smbldap_bind.conf %{buildroot}%{_sysconfdir}/smbldap-tools/
 install -m0644 smbldap_tools.pm %{buildroot}%{perl_vendorlib}/
 
 install -m0755 smbldap-groupadd %{buildroot}%{_sbindir}/
@@ -86,29 +86,9 @@ rm -rf %{buildroot}
 %defattr(-,root,root)
 %doc CONTRIBUTORS COPYING ChangeLog INFRA INSTALL README TODO doc
 %doc smbldap.conf smbldap_bind.conf configure.pl
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/smbldap-tools/smbldap.conf
-%attr(0600,root,root) %config(noreplace) %{_sysconfdir}/smbldap-tools/smbldap_bind.conf
-%attr(0755,root,root) %{_sbindir}/mkntpwd
-%attr(0755,root,root) %{_sbindir}/smbldap-groupadd
-%attr(0755,root,root) %{_sbindir}/smbldap-groupdel
-%attr(0755,root,root) %{_sbindir}/smbldap-groupmod
-%attr(0755,root,root) %{_sbindir}/smbldap-groupshow
-%attr(0755,root,root) %{_sbindir}/smbldap-passwd
-%attr(0755,root,root) %{_sbindir}/smbldap-populate
-%attr(0755,root,root) %{_sbindir}/smbldap-useradd
-%attr(0755,root,root) %{_sbindir}/smbldap-userdel
-%attr(0755,root,root) %{_sbindir}/smbldap-usermod
-%attr(0755,root,root) %{_sbindir}/smbldap-userinfo
-%attr(0755,root,root) %{_sbindir}/smbldap-usershow
-%attr(0644,root,root) %{perl_vendorlib}/smbldap_tools.pm
-%attr(0644,root,root) %{_mandir}/man1/smbldap-groupadd.1*
-%attr(0644,root,root) %{_mandir}/man1/smbldap-groupdel.1*
-%attr(0644,root,root) %{_mandir}/man1/smbldap-groupmod.1*
-%attr(0644,root,root) %{_mandir}/man1/smbldap-groupshow.1*
-%attr(0644,root,root) %{_mandir}/man1/smbldap-passwd.1*
-%attr(0644,root,root) %{_mandir}/man1/smbldap-populate.1*
-%attr(0644,root,root) %{_mandir}/man1/smbldap-useradd.1*
-%attr(0644,root,root) %{_mandir}/man1/smbldap-userdel.1*
-%attr(0644,root,root) %{_mandir}/man1/smbldap-userinfo.1*
-%attr(0644,root,root) %{_mandir}/man1/smbldap-usermod.1*
-%attr(0644,root,root) %{_mandir}/man1/smbldap-usershow.1*
+%dir %{_sysconfdir}/smbldap-tools
+%config(noreplace) %{_sysconfdir}/smbldap-tools/smbldap.conf
+%config(noreplace) %{_sysconfdir}/smbldap-tools/smbldap_bind.conf
+%{_sbindir}/*
+%{perl_vendorlib}/smbldap_tools.pm
+%{_mandir}/man1/*
