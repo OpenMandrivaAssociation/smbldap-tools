@@ -1,13 +1,14 @@
 Summary:	User & Group administration tools for Samba-OpenLDAP
 Name: 		smbldap-tools
 Version: 	0.9.5
-Release: 	%mkrel 4
+Release: 	%mkrel 5
 Group: 		System/Servers
 License: 	GPL
 URL:		https://gna.org/projects/smbldap-tools/
 Source0: 	http://download.gna.org/smbldap-tools/packages/%{name}-%{version}.tgz
 Source1: 	mkntpwd.tar.bz2
 Patch0:		smbldap-tools-mdvconfig.diff
+Patch1:		smbldap-tools-utf-8.patch
 Requires:	perl-IO-Socket-SSL
 BuildRequires:	perl-doc
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -32,6 +33,7 @@ Comments and/or questions can be sent to the smbldap-tools mailing list
 
 %setup -q -a1
 %patch0 -p0 -b .mdvconf
+%patch1 -p1 -b .utf8
 
 # nuke that IDEALX stuff from the code
 for i in `find -type f`; do
