@@ -1,7 +1,7 @@
 Summary:	User & Group administration tools for Samba-OpenLDAP
 Name: 		smbldap-tools
 Version: 	0.9.5
-Release: 	9
+Release: 	10
 Group: 		System/Servers
 License: 	GPL
 URL:		https://gna.org/projects/smbldap-tools/
