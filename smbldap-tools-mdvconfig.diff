@@ -1,6 +1,7 @@
---- smbldap.conf	2008-04-22 10:13:29.000000000 +0200
-+++ smbldap.conf.oden	2008-04-22 12:48:28.000000000 +0200
-@@ -39,7 +39,7 @@
+diff -up smbldap-tools-0.9.9/smbldap.conf.1~ smbldap-tools-0.9.9/smbldap.conf
+--- smbldap-tools-0.9.9/smbldap.conf.1~	2012-08-07 13:12:06.000000000 +0200
++++ smbldap-tools-0.9.9/smbldap.conf	2018-07-12 10:22:13.641786347 +0200
+@@ -38,7 +38,7 @@ SID="S-1-5-21-2252255531-4061614174-2474
  # Domain name the Samba server is in charged.
  # If not defined, parameter is taking from smb.conf configuration file
  # Ex: sambaDomain="IDEALX-NT"
@@ -9,7 +10,7 @@
  
  ##############################################################################
  #
-@@ -92,15 +92,15 @@
+@@ -76,15 +76,15 @@ verify="require"
  
  # CA certificate
  # see "man Net::LDAP" in start_tls section for more details
@@ -18,17 +19,17 @@
  
  # certificate to use to connect to the ldap server
  # see "man Net::LDAP" in start_tls section for more details
--clientcert="/etc/smbldap-tools/smbldap-tools.iallanis.info.pem"
+-clientcert="/etc/smbldap-tools/smbldap-tools.example.com.pem"
 +clientcert=""
  
  # key certificate to use to connect to the ldap server
  # see "man Net::LDAP" in start_tls section for more details
--clientkey="/etc/smbldap-tools/smbldap-tools.iallanis.info.key"
+-clientkey="/etc/smbldap-tools/smbldap-tools.example.com.key"
 +clientkey=""
  
  # LDAP Suffix
  # Ex: suffix=dc=IDEALX,dc=ORG
-@@ -109,17 +109,17 @@
+@@ -93,17 +93,17 @@ suffix="dc=example,dc=com"
  # Where are stored Users
  # Ex: usersdn="ou=Users,dc=IDEALX,dc=ORG"
  # Warning: if 'suffix' is not set here, you must set the full dn for usersdn
@@ -48,8 +49,8 @@
 +groupsdn="ou=Group,${suffix}"
  
  # Where are stored Idmap entries (used if samba is a domain member server)
- # Ex: groupsdn="ou=Idmap,dc=IDEALX,dc=ORG"
-@@ -188,29 +188,29 @@
+ # Ex: idmapdn="ou=Idmap,dc=IDEALX,dc=ORG"
+@@ -176,24 +176,24 @@ defaultMaxPasswordAge="45"
  # Just set it to a null string if you want to use the smb.conf 'logon home'
  # directive and/or disable roaming profiles
  # Ex: userSmbHome="\\PDC-SMB3\%U"
@@ -78,9 +79,3 @@
  
  # Domain appended to the users "mail"-attribute
  # when smbldap-useradd -M is used
- # Ex: mailDomain="idealx.com"
--mailDomain="iallanis.info"
-+mailDomain="example.com"
- 
- ##############################################################################
- #
